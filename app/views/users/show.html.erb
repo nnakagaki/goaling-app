@@ -42,18 +42,3 @@
     <% end %>
   <% end %>
 </ul>
-
-<br>
-<% if current_user %>
-  <form action="<%= user_user_comments_url(@user) %>" method="post">
-    <%= auth_token %>
-    <label for="comment_body">Comment</label>
-    <textarea id="comment_body" name="user_comment[body]"></textarea><br>
-    <input type="submit" value="Post Comment">
-  </form>
-<% end %>
-<ul>
-  <% @user.comments.each do |comment| %>
-    <li><%= comment.author.username %> says: <%= comment.body %></li>
-  <% end %>
-</ul>
