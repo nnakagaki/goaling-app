@@ -22,20 +22,10 @@ class User < ActiveRecord::Base
     foreign_key: :author_id,
     inverse_of: :author
 
-  has_many :authored_user_comments,
-    class_name: "UserComment",
-    foreign_key: :author_id,
-    inverse_of: :author
+  has_many :authored_user_comments, as: :commentable
+  has_many :authored_goal_comments, as: :commentable
+  has_many :comments, as: :commentable
 
-  has_many :authored_goal_comments,
-    class_name: "GoalComment",
-    foreign_key: :author_id,
-    inverse_of: :author
-
-  has_many :comments,
-    class_name: "UserComment",
-    foreign_key: :user_id,
-    inverse_of: :user
 
   attr_reader :password
 
