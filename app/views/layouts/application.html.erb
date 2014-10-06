@@ -2,12 +2,25 @@
 <html>
 <head>
   <title>GoalingApp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <% unless request.env['PATH_INFO'] == users_path %>
+    <a href="<%= users_url %>">Back to index</a>
+  <% end %>
+<% if current_user %>
+  <%= button_to "Logout", session_url, method: :delete %>
+  <br><br>
+  Hi, <%= current_user.username %>
+<% else %>
+  <% if request.env["PATH_INFO"] == new_session_path %>
+    <a href="<%= new_user_url %>">Sign Up</a>
+  <% elsif request.env["PATH_INFO"] == new_user_path %>
+    <a href="<%= new_session_url %>">Login</a>
+  <% else %>
+    <a href="<%= new_session_url %>">Login</a> or <a href="<%= new_user_url %>">Sign Up</a>
+  <% end %>
+<% end %>
 <%= yield %>
 
 </body>
