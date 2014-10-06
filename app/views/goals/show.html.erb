@@ -1,0 +1,24 @@
+<h1><%= @goal.author.username %>'s goal: <%= @goal.title %></h1>
+<h3><p><%= @goal.description %><p></h3>
+<%= @goal.completed ? 'completed' : 'incompleted' %>
+
+<br><br>
+<% if @goal.author == current_user %>
+  <%= button_to 'Edit', edit_goal_url(@goal), method: :get %>
+  <br>
+  <%= button_to 'Delete', goal_url(@goal), method: :delete %>
+<% end %>
+<br><br>
+<% if current_user %>
+  <form action="<%= goal_goal_comments_url(@goal) %>" method="post">
+    <%= auth_token %>
+    <label for="comment_body">Comment</label>
+    <textarea id="comment_body" name="goal_comment[body]"></textarea><br>
+    <input type="submit" value="Post Comment">
+  </form>
+<% end %>
+<ul>
+  <% @goal.comments.each do |comment| %>
+    <li><%= comment.author.username %> says: <%= comment.body %></li>
+  <% end %>
+</ul>
