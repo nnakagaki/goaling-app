@@ -29,7 +29,7 @@ feature "Comment" do
 
     fill_in 'Comment', with: "biscuits are great!"
     click_on "Post Comment"
-    @bobby_comment = GoalComment.last
+    @bobby_comment = Comment.last
   end
 
   feature "Comment on goal" do
@@ -46,7 +46,7 @@ feature "Comment" do
     end
 
     it "reject empty comments" do
-      expect(FactoryGirl.build(:goal_comment, body: "")).not_to be_valid
+      expect(FactoryGirl.build(:comment, body: "")).not_to be_valid
     end
 
     it "cannot comment unless signed in" do
@@ -62,7 +62,7 @@ feature "Comment" do
       visit user_url(@jimbo)
       fill_in 'Comment', with: "Jimbo you suck!"
       click_on "Post Comment"
-      @bobby_user_comment = UserComment.last
+      @bobby_user_comment = Comment.last
     end
     it "redirects back to user page" do
       expect(current_url).to eq(user_url(@jimbo))
@@ -77,7 +77,7 @@ feature "Comment" do
     end
 
     it "reject empty comments" do
-      expect(FactoryGirl.build(:user_comment, body: "")).not_to be_valid
+      expect(FactoryGirl.build(:comment, body: "")).not_to be_valid
     end
 
     it "cannot comment unless signed in" do
